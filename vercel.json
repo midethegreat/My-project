@@ -1,0 +1,11 @@
+{
+  "buildCommand": "echo 'Static content - no build needed'",
+  "outputDirectory": ".",
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/main.html"
+    }
+  ]
+}
