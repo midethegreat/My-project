@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:weekly"
+  ],
+  "dependencies": {
+    "automerge": true
+  },
+  "ignoreDeps": [],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "npmDedupe",
+    "yarnDedupeHighest"
+  ]
+}
