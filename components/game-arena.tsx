@@ -81,7 +81,7 @@ export function GameArena() {
 
   const handleCustomBetInput = () => {
     const customAmount = Number.parseInt(customBet)
-    if (customAmount > 0) {
+    if (customAmount > 0 && customAmount <= 10000) {
       setBet(customAmount)
       setCustomBet("")
     }
@@ -109,6 +109,7 @@ export function GameArena() {
                     onClick={() => setGameState("betting")}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
                   >
+                    <i className="fas fa-play mr-2" />
                     Play Now
                   </Button>
                 </>
@@ -120,56 +121,60 @@ export function GameArena() {
                   <div>
                     <h2 className="text-xl sm:text-2xl font-bold text-foreground">Place Your Bet</h2>
                     <p className="text-xs sm:text-sm text-muted-foreground mt-2">
-                      Choose how much to wager on this round
+                      Choose how much to wager on this round (₦1 - ₦10,000)
                     </p>
                   </div>
                   <div className="space-y-4 w-full max-w-xs mx-auto px-2 sm:px-0">
                     {/* Responsive button grid */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-                      {[5, 10, 20, 50].map((amount) => (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {[5, 10, 20, 50, 100, 250].map((amount) => (
                         <Button
                           key={amount}
                           onClick={() => setBet(amount)}
                           variant={bet === amount ? "default" : "outline"}
-                          className={`${
+                          className={`text-xs sm:text-sm py-3 px-4 ${
                             bet === amount
                               ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                               : "border-border text-foreground hover:bg-card"
                           }`}
                         >
-                          {amount}
+                          ₦{amount}
                         </Button>
                       ))}
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-xs sm:text-sm text-muted-foreground block">Or enter custom amount</label>
-                      <div className="flex gap-2">
+                    <div className="space-y-3">
+                      <label className="text-sm text-muted-foreground block">Or enter custom amount</label>
+                      <div className="flex gap-3">
                         <input
                           type="number"
                           value={customBet}
                           onChange={(e) => setCustomBet(e.target.value)}
-                          placeholder="Enter amount"
-                          className="flex-1 px-3 py-2 rounded-lg bg-card border border-border text-foreground placeholder-muted-foreground text-sm"
+                          placeholder="Enter amount (₦)"
+                          className="flex-1 px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder-muted-foreground text-sm focus:outline-none focus:border-primary"
                           min="1"
+                          max="10000"
                         />
                         <Button
                           onClick={handleCustomBetInput}
-                          className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                          disabled={!customBet}
+                          className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-4 py-3"
                         >
-                          Place Bet
+                          <i className="fas fa-check" />
                         </Button>
                       </div>
                     </div>
 
                     <div className="bg-card rounded-lg p-4 border border-border/50">
                       <p className="text-xs sm:text-sm text-muted-foreground">Current Bet</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-primary">${bet}</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-primary">₦{bet}</p>
+                      <p className="text-xs text-muted-foreground mt-2">Potential Win: ₦{bet * 2}</p>
                     </div>
                     <Button
                       onClick={startNewRound}
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 font-semibold text-base"
                     >
+                      <i className="fas fa-dice mr-2" />
                       Start Round
                     </Button>
                   </div>
@@ -180,7 +185,7 @@ export function GameArena() {
                 <>
                   <div>
                     <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pick the Correct Card</h2>
-                    <p className="text-xs sm:text-sm text-muted-foreground">You're betting ${bet}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">You're betting ₦{bet}</p>
                   </div>
 
                   {/* Responsive card grid - 3 columns that adapt to mobile */}
@@ -230,22 +235,24 @@ export function GameArena() {
                   <div>
                     <h2 className="text-xl sm:text-2xl font-bold text-foreground">{message}</h2>
                     <p className="text-sm sm:text-base text-muted-foreground mt-2">
-                      {winAmount > 0 ? `You won $${winAmount}!` : `You lost $${Math.abs(winAmount)}`}
+                      {winAmount > 0 ? `You won ₦${winAmount}!` : `You lost ₦${Math.abs(winAmount)}`}
                     </p>
                   </div>
                   {/* Responsive button layout */}
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center w-full">
+                  <div className="flex flex-col gap-3 justify-center w-full max-w-xs mx-auto">
                     <Button
                       onClick={handlePlayAgain}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground w-full py-3 font-semibold"
                     >
+                      <i className="fas fa-redo mr-2" />
                       Play Again
                     </Button>
                     <Button
                       onClick={handleChangeBet}
                       variant="outline"
-                      className="border-border text-foreground hover:bg-card bg-transparent w-full sm:w-auto"
+                      className="border-border text-foreground hover:bg-card bg-transparent w-full py-3"
                     >
+                      <i className="fas fa-coins mr-2" />
                       Change Bet
                     </Button>
                   </div>
@@ -272,7 +279,7 @@ export function GameArena() {
               <div className="space-y-2">
                 <p className="text-xs sm:text-sm text-muted-foreground">Total Earnings</p>
                 <p className={`text-2xl sm:text-3xl font-bold ${totalEarnings >= 0 ? "text-primary" : "text-red-400"}`}>
-                  ${totalEarnings}
+                  ₦{totalEarnings}
                 </p>
               </div>
               {totalWins + totalLosses > 0 && (

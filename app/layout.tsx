@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono } from 'next/font/google'
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -37,10 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      </head>
-      <body className={`font-sans antialiased`}>{children}</body>
+      <body className={`font-sans antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }
