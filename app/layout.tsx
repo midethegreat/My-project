@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   title: "OnePlay - GameFi on OneChain",
   description:
     "Experience next-generation blockchain gaming with wallet-integrated gameplay, tokenized assets, and true ownership on OneChain.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
