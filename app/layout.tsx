@@ -1,10 +1,19 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from 'next/font/google'
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+// ✅ New correct Geist import (official maintained package)
+import { Geist, Geist_Mono } from "next/font/google";
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
 
 export const metadata: Metadata = {
   title: "OnePlay - GameFi on OneChain",
@@ -28,18 +37,16 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
-      </body>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+      <body className="font-sans antialiased">{children}</body>
     </html>
-  )
+  );
 }
